@@ -4,7 +4,7 @@ import { BASE_URL, CITIES, PROVINCES } from "./consts";
 
 export const handlers = [
   http.get(`${BASE_URL}/provinces`, async ({ request }) => {
-    return HttpResponse.json({ results: PROVINCES }, { status: 200 });
+    return HttpResponse.json({ results: PROVINCES }, { status: 400 });
   }),
 
   http.get(`${BASE_URL}/cities/:id`, async ({ request }) => {
@@ -20,8 +20,14 @@ export const handlers = [
 
   http.post(`${BASE_URL}/submit`, async ({ request }) => {
     return HttpResponse.json(
-      { detail: "اطلاعات شما با موفقیت ثبت شد." },
-      { status: 200 }
+      // {  },
+      {
+        detail: "اطلاعات شما با موفقیت ثبت شد.",
+        extra: [
+          { field: "national_code", error: "کد ملی وارد شده نامعتبر است" },
+        ],
+      },
+      { status: 400 }
     );
   }),
 ];
